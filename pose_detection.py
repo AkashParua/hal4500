@@ -2,12 +2,10 @@ import cv2
 import mediapipe as mp
 from ultralytics import YOLO 
 
-import socket 
-
 yolov8 = YOLO("yolov8n.pt")
 
 mp_drawing = mp.solutions.drawing_utils
-mp_holistic = mp.solutions.holistic
+mp_hands = mp.solutions.hands
 
 cap = cv2.VideoCapture(0)
 coco_classes = [
@@ -31,8 +29,15 @@ bbox_thickness = 2
 det_confidence_threshhold = 0.5
 color = (255,0,0)
 
+#Object detection results 
+results = None
+#Holistic landmark results
+land_mark_results = None
+
 def vision():
-    with mp_holistic.Holistic(min_detection_confidence=0.5 ,min_tracking_confidence=0.5) as holistic : 
+    global results
+    global land_mark_results
+    with mp_hands.Hands(min_detection_confidence=0.5 ,min_tracking_confidence=0.5) as hands : 
         while cap.isOpened():
             ret , frame = cap.read()
             if not ret :
@@ -41,7 +46,7 @@ def vision():
             image = cv2.cvtColor(frame , cv2.COLOR_BGR2RGB)
 
             #finding the hand landmarks 
-            land_mark_results = holistic.process(image)
+            land_mark_results = hands.process(image)
             #show feed
             results = yolov8(frame)
 
@@ -53,12 +58,13 @@ def vision():
                     text = str(coco_classes[int(class_id)]) + f'{confidence:.2f}'
                     position = (int(bboxes[0]),int(bboxes[1]))
                     cv2.putText(frame, text, position, font, font_scale, text_color, text_thickness)
-            mp_drawing.draw_landmarks(frame , land_mark_results.right_hand_landmarks , mp_holistic.HAND_CONNECTIONS)
-            mp_drawing.draw_landmarks(frame , land_mark_results.left_hand_landmarks , mp_holistic.HAND_CONNECTIONS)
+            if land_mark_results.multi_hand_landmarks :
+                for num,hand in enumerate(land_mark_results.multi_hand_landmarks): 
+                    mp_drawing.draw_landmarks(frame , hand , mp_hands.HAND_CONNECTIONS)
             cv2.imshow('Camera Feed', frame)
             if cv2.waitKey(10) & 0xFF == ord('q') :
                 break
     cap.release()
     cv2.destroyAllWindows()
 
-vision()
+#vision()
