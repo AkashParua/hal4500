@@ -136,7 +136,7 @@ def vision():
                             if num > 0 and coco_classes[int(class_id)] != 'Person':
                                  object = coco_classes[int(class_id)]
                                  bbox_of_object = bboxes
-                            print(num)
+        
                     if thumbs_up_guesture and handedness_label=='Left' :
                         cv2.putText(frame , 'Left ThumbsUp' , (25,25) , font ,font_scale , (0,0,0) , text_thickness)
                         output["left_hand_poisture"] = "ThumbsUp"
