@@ -31,8 +31,15 @@ bbox_thickness = 2
 det_confidence_threshhold = 0.5
 color = (255,0,0)
 
-def vision():
+output = {
+        'left_hand_object' : None,
+        'right_hand_object' : None , 
+        'right_hand_poisture' : None ,
+        'left_hand_poisture' : None
+        }
 
+def vision():
+    global output
     with mp_hands.Hands(min_detection_confidence=0.5 ,min_tracking_confidence=0.5) as hands : 
         while cap.isOpened():
             ret , frame = cap.read()
