@@ -1,10 +1,10 @@
 import cv2
 import mediapipe as mp
 from ultralytics import YOLO 
-import json
 
 
-yolov8 = YOLO("yolov8n.pt")
+
+yolov8 = YOLO("yolov8s.pt") #change to yolov8n.pt if the performance drops
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
