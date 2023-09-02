@@ -1,11 +1,21 @@
 import cv2
 import mediapipe as mp
 from ultralytics import YOLO 
+import socket
+import json
+
+#socket sends the output of vision script
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('127.0.0.1',6000)
+server_socket.bind(server_address)
+server_socket.listen(1)
+print("listening to request .... ")
+client_socket, client_address = server_socket.accept()
+
 
 
 
 yolov8 = YOLO("yolov8s.pt") #change to yolov8n.pt if the performance drops
-
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
@@ -31,15 +41,17 @@ bbox_thickness = 2
 det_confidence_threshhold = 0.5
 color = (255,0,0)
 
+'''
 output = {
         'left_hand_object' : None,
         'right_hand_object' : None , 
         'right_hand_poisture' : None ,
         'left_hand_poisture' : None
         }
+'''
 
 def vision():
-    global output
+
     with mp_hands.Hands(min_detection_confidence=0.5 ,min_tracking_confidence=0.5) as hands : 
         while cap.isOpened():
             ret , frame = cap.read()
@@ -50,7 +62,8 @@ def vision():
                     'left_hand_object' : None,
                     'right_hand_object' : None , 
                     'right_hand_poisture' : None ,
-                    'left_hand_poisture' : None
+                    'left_hand_poisture' : None,
+                    'exit_signal' : False
                 }
 
             if not ret :
@@ -64,8 +77,7 @@ def vision():
             #finding the hand landmarks 
             land_mark_results = hands.process(image)
             #show feed
-            results = yolov8(frame)
-
+            results = yolov8(frame , verbose= False)
             #drawing bounding boxes
             for bboxes , confidence , class_id in zip(results[0].boxes.xyxy.tolist() , results[0].boxes.conf.tolist() , results[0].boxes.cls.tolist()):
                 if confidence >= det_confidence_threshhold:
@@ -163,11 +175,18 @@ def vision():
                         
 
             cv2.imshow('Camera Feed', frame)
+            response_json = json.dumps(output)
+            client_socket.send(response_json.encode('utf-8'))
+
 
             if cv2.waitKey(10) & 0xFF == ord('q') :
                 break
     cap.release()
     cv2.destroyAllWindows()
+    output['exit_signal'] = True
+    response_json = json.dumps(output)
+    client_socket.send(response_json.encode('utf-8'))
+    client_socket.close()
 
 
 vision()
