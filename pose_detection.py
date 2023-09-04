@@ -6,7 +6,7 @@ import json
 
 #socket sends the output of vision script
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('127.0.0.1',6000)
+server_address = ('127.0.0.1',6001)
 server_socket.bind(server_address)
 server_socket.listen(1)
 print("listening to request .... ")
@@ -68,6 +68,8 @@ def vision():
 
             if not ret :
                 continue
+
+            cv2.imwrite('current.jpg' , frame)
             #Changing the image from BGR to RGB
             image = cv2.cvtColor(frame , cv2.COLOR_BGR2RGB)
 

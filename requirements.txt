@@ -1,4 +1,6 @@
 ultralytics
 mediapipe
 opencv-python
-keyboard
+SpeechRecognition
+pynput
+pipwin

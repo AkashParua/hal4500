@@ -2,7 +2,7 @@ import socket
 import json
 # Create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('127.0.0.1',6000)
+server_address = ('127.0.0.1',6001)
 
 client_socket.connect(server_address)
 
@@ -13,7 +13,7 @@ while True :
     data = client_socket.recv(1024).decode('utf-8')
     if data :
         recv_data = json.loads(data)
-        print(recv_data)
+        print(recv_data['exit_signal'])
         if recv_data['exit_signal'] :
             break
 
