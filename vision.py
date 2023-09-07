@@ -3,10 +3,15 @@ import mediapipe as mp
 from ultralytics import YOLO 
 import socket
 import json
+import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
+vision_port = os.getenv("VISION_PORT")
 #socket sends the output of vision script
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('127.0.0.1',6001)
+server_address = ('127.0.0.1',int(vision_port))
 server_socket.bind(server_address)
 server_socket.listen(1)
 print("listening to request .... ")
@@ -43,10 +48,23 @@ color = (255,0,0)
 
 '''
 output = {
-        'left_hand_object' : None,
-        'right_hand_object' : None , 
+        'left_hand_object' : {
+            'name' : None,
+            'xmin' : None,
+            'ymin' : None,
+            'xmax' : None,
+            'ymax' : None
+        },
+        'right_hand_object' : {
+            'name' : None,
+            'xmin' : None,
+            'ymin' : None,
+            'xmax' : None,
+            'ymax' : None
+        }, 
         'right_hand_poisture' : None ,
-        'left_hand_poisture' : None
+        'left_hand_poisture' : None,
+        'exit_signal' : False
         }
 '''
 
@@ -189,6 +207,7 @@ def vision():
     response_json = json.dumps(output)
     client_socket.send(response_json.encode('utf-8'))
     client_socket.close()
+    server_socket.close()
 
 
 vision()

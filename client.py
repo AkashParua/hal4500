@@ -1,8 +1,12 @@
 import socket
 import json
+import os
+import dotenv
+dotenv.load_dotenv()
+
 # Create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('127.0.0.1',6001)
+server_address = ('127.0.0.1',int(os.getenv("VISION_PORT")))
 
 client_socket.connect(server_address)
 
@@ -18,7 +22,7 @@ while True :
             break
 
 
-
+    
 
 
 
