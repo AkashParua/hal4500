@@ -11,7 +11,7 @@ load_dotenv()
 vision_port = os.getenv("VISION_PORT")
 #socket sends the output of vision script
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('127.0.0.1',int(vision_port))
+server_address = (socket.gethostname(),int(vision_port))
 server_socket.bind(server_address)
 server_socket.listen(1)
 print("listening to request .... ")
@@ -40,11 +40,11 @@ coco_classes = [
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 font_scale = 1
-text_color = (255, 255, 255)  # Text color in BGR format (white in this case)
+text_color = (255, 0, 239)  # Text color in BGR format (white in this case)
 text_thickness = 1  # Thickness of the text
 bbox_thickness = 2
 det_confidence_threshhold = 0.5
-color = (255,0,0)
+color = (255,0,0)   #BGR format color of the bounding box
 
 '''
 output = {

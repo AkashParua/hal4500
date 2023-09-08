@@ -4,3 +4,4 @@ opencv-python
 SpeechRecognition
 pynput
 pipwin
+google-serp-api

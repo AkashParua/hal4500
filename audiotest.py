@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+data = None
 soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 soc.connect((socket.gethostname(), int(os.getenv("HEARING_PORT"))))
 while True:
