@@ -42,8 +42,8 @@ def listen():
 
         try:
             exit_signal = client_socket.recv(1024).decode('utf-8')
-        except socket.timeout:
-            exit_signal = "continue"
+        except BlockingIOError:
+            pass
 
         if exit_signal == "exit":
             break

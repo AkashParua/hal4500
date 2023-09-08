@@ -8,14 +8,14 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-vision_port = os.getenv("VISION_PORT")
+#vision_port = os.getenv("VISION_PORT")
 #socket sends the output of vision script
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = (socket.gethostname(),int(vision_port))
-server_socket.bind(server_address)
-server_socket.listen(1)
-print("listening to request .... ")
-client_socket, client_address = server_socket.accept()
+#server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#server_address = (socket.gethostname(),int(vision_port))
+#server_socket.bind(server_address)
+#server_socket.listen(1)
+#print("listening to request .... ")
+#client_socket, client_address = server_socket.accept()
 
 
 
@@ -45,7 +45,7 @@ text_thickness = 1  # Thickness of the text
 bbox_thickness = 2
 det_confidence_threshhold = 0.5
 color = (255,0,0)   #BGR format color of the bounding box
-
+json_file_path = 'output.json'
 '''
 output = {
         'left_hand_object' : {
@@ -64,7 +64,6 @@ output = {
         }, 
         'right_hand_poisture' : None ,
         'left_hand_poisture' : None,
-        'exit_signal' : False
         }
 '''
 
@@ -81,7 +80,6 @@ def vision():
                     'right_hand_object' : None , 
                     'right_hand_poisture' : None ,
                     'left_hand_poisture' : None,
-                    'exit_signal' : False
                 }
 
             if not ret :
@@ -196,18 +194,22 @@ def vision():
 
             cv2.imshow('Camera Feed', frame)
             response_json = json.dumps(output)
-            client_socket.send(response_json.encode('utf-8'))
+            with open(json_file_path , 'w') as json_file :
+                json_file.write(response_json)
+
+            
+            #client_socket.send(response_json.encode('utf-8'))
 
 
             if cv2.waitKey(10) & 0xFF == ord('q') :
                 break
     cap.release()
     cv2.destroyAllWindows()
-    output['exit_signal'] = True
-    response_json = json.dumps(output)
-    client_socket.send(response_json.encode('utf-8'))
-    client_socket.close()
-    server_socket.close()
+    #output['exit_signal'] = True
+    #response_json = json.dumps(output)
+    #client_socket.send(response_json.encode('utf-8'))
+    #client_socket.close()
+    #server_socket.close()
 
 
 vision()
