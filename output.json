@@ -1,1 +1,12 @@
-{"left_hand_object": null, "right_hand_object": {"name": "Cup", "xmin": 287.096923828125, "ymin": 146.6598358154297, "xmax": 426.6043701171875, "ymax": 375.54693603515625}, "right_hand_poisture": "ThumbsUp", "left_hand_poisture": null}
+{
+    "left_hand_object": null,
+    "right_hand_object": {
+        "name": "Cup",
+        "xmin": 287.096923828125,
+        "ymin": 146.6598358154297,
+        "xmax": 426.6043701171875,
+        "ymax": 375.54693603515625
+    },
+    "right_hand_poisture": "ThumbsUp",
+    "left_hand_poisture": null
+}

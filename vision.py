@@ -85,7 +85,7 @@ def vision():
             if not ret :
                 continue
 
-            cv2.imwrite('current.jpg' , frame)
+            #cv2.imwrite('current.jpg' , frame)
             #Changing the image from BGR to RGB
             image = cv2.cvtColor(frame , cv2.COLOR_BGR2RGB)
 

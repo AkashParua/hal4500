@@ -1,7 +1,13 @@
 import socket
 import os
 from dotenv import load_dotenv
+from tools import chat, what_am_i_holding
+
 load_dotenv()
+
+import os
+import openai
+openai.api_key = os.getenv("OPEN_AI_API")
 
 
 soc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,6 +25,11 @@ while True:
         if data == "exit":
             break
     
+
+    
+
+
+
         print(data)
 
 
