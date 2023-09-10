@@ -1,7 +1,7 @@
 import socket
 import os
 from dotenv import load_dotenv
-from tools import chat, what_am_i_holding
+from vision_tools import chat, what_am_i_holding
 
 load_dotenv()
 
