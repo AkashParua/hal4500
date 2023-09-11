@@ -1,9 +1,7 @@
 import cv2
 import mediapipe as mp
 from ultralytics import YOLO 
-import socket
 import json
-import os
 
 from dotenv import load_dotenv
 load_dotenv()
