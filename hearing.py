@@ -32,10 +32,9 @@ def listen():
         except sr.RequestError as e:
             print(f"Could not request results from Google Web Speech API; {e}")
         
-        try :
-            client_socket.send(audio_command.encode('utf-8'))
-        except BlockingIOError:
-            pass
+        
+        client_socket.send(audio_command.encode('utf-8'))
+        
         if audio_command == "exit":
             break
 

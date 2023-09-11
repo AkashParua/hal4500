@@ -49,20 +49,4 @@ def what_am_i_holding():
         
         return chat_response
 
-async def chat(input):
-    messages = [{"role" : "user", "content" : input}]
-    response = await openai.ChatCompletion.acreate(
-        model = "gpt-3.5-turbo",
-        messages = messages,
-        temperature = 0,
-    )
-    print(response)
-    return response.choices[0].message["content"]
-
-async def main():
-    await chat("when was it released?")
-    print('Hello')
-
-if __name__ == "__main__":
-    asyncio.run(main())
 
