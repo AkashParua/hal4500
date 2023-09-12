@@ -12,7 +12,6 @@ openai.api_key = os.getenv("OPEN_AI_API")
 from langchain.agents import initialize_agent
 llm = OpenAI(openai_api_key=openai.api_key,temperature=0)
 
-from langchain.agents import AgentType
 from langchain.tools import BaseTool
 class WhatAmIHolding(BaseTool):
     name = "hand contents"
@@ -22,7 +21,7 @@ class WhatAmIHolding(BaseTool):
 
 tools = [WhatAmIHolding()]
 agent = initialize_agent(
-    tools, llm, agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,  verbose=True
+    tools, llm, agent= 'chat-zero-shot-react-description',  verbose=True
 )
 
 
@@ -58,9 +57,9 @@ while True:
 ⠀⠀⠀⣴⣿⣿⣿⠟⠋⣻⣤⣤⣤⣤⣤⣄⣉⠙⠻⣿⣿⣿⣦⠀⠀⠀
 ⠀⢀⣾⣿⣿⣿⣇⣤⣾⠿⠛⠉⠉⠉⠉⠛⠿⣷⣶⣿⣿⣿⣿⣷⡀⠀
 ⠀⣾⣿⣿⣿⣿⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⣿⣿⣷⠀
-⢠⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀     ⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⡄
-⢸⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀     ⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡇
-⠘⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀     ⠀⠀⠀⠀⣼⣿⣿⣿⣿⣿⠃
+⢠⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀     ⠀⠀⠀⠀ ⢻⣿⣿⣿⣿
+⢸⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀     ⠀⠀⠀⠀ ⢸⣿⣿⣿⣿⣿
+⠘⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀     ⠀⠀⠀⠀ ⣼⣿⣿⣿⣿⠃
 ⠀⢿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⣿⣿⣿⣿⣿⡿⠀
 ⠀⠈⢿⣿⣿⣿⣿⣿⣿⣶⣤⣀⣀⣀⣀⣤⣶⣿⣿⣿⣿⣿⣿⡿⠁⠀
 ⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠀⠀⠀
@@ -72,8 +71,8 @@ while True:
         if data == "exit":
             break
 
-        if data == '--silence--':
-            continue
+        if '--silence--' in data:
+            continue        
             
         print(f"Human: {data}")
         response = agent.run(data)
@@ -96,4 +95,5 @@ while True:
         for char in response:
             print(char, end='', flush=True)
             time.sleep(0.05)
+        time.sleep(1.0)
 soc.close()
