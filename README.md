@@ -15,6 +15,11 @@ Our journey starts with YOLOv8, a state-of-the-art object detection model traine
 But HAL4500 doesn't stop there. It's powered by LangChain, a dynamic autonomous agent capable of logic-based decision-making.
 HAL4500 can understand your voice commands, engage in conversations, and decide when to deploy its digital tools. It's like having a knowledgeable companion at your fingertips. 💬🤯
 
+# Instructions
+Install the dependencies usng environment.yaml or environments.txt
+Run the vision.py script
+Run the heairng.py script
+Run the main.py script
 
 
 https://github.com/AkashParua/hal4500/assets/70876392/655084a3-7521-4d71-b70c-9684385a5c94
