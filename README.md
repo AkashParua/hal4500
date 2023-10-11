@@ -16,10 +16,14 @@ But HAL4500 doesn't stop there. It's powered by LangChain, a dynamic autonomous 
 HAL4500 can understand your voice commands, engage in conversations, and decide when to deploy its digital tools. It's like having a knowledgeable companion at your fingertips. 💬🤯
 
 # Instructions
-Install the dependencies usng environment.yaml or environments.txt
-Run the vision.py script
-Run the heairng.py script
-Run the main.py script
+0. create a .env file in the root add HEARING_PORT = ****
+OPEN_AI_API = ********************************
+1.Install the dependencies usng environment.yaml or environments.txt
+2.Run the vision.py script
+3.Run the heairng.py script
+4.Run the main.py script
+
+
 
 
 https://github.com/AkashParua/hal4500/assets/70876392/655084a3-7521-4d71-b70c-9684385a5c94
