@@ -18,10 +18,10 @@ HAL4500 can understand your voice commands, engage in conversations, and decide 
 # Instructions
 0. create a .env file in the root add HEARING_PORT = ****
 OPEN_AI_API = ********************************
-1.Install the dependencies usng environment.yaml or environments.txt
-2.Run the vision.py script
-3.Run the heairng.py script
-4.Run the main.py script
+1. Install the dependencies usng environment.yaml or environments.txt
+2. Run the vision.py script
+3. Run the heairng.py script
+4. Run the main.py script
 
 
 
